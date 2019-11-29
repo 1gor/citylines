@@ -492,7 +492,7 @@ button.save-system {
 }
 
 .contributors-list {
-  width: 50%;
+  width: 45%;
   display: inline-block;
   vertical-align: top;
 }
@@ -503,6 +503,10 @@ button.save-system {
 
 .contributors-list li {
   padding-bottom: 5px;
+}
+
+.contributors-list + .contributors-list {
+  margin-left: 20px;
 }
 
 .top-systems-list {
@@ -519,6 +523,11 @@ button.save-system {
   margin-right: 10px;
   margin-left: 10px;
 }
+
+.list-km {
+  float: right;
+}
+
 ul.auth {
   list-style-type: none;
   padding: 0;
