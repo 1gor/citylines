@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router';
+import {Link} from 'react-router-dom';
 import Diacritics from 'diacritics';
 import CitiesStore from '../stores/cities-store';
 import MainStore from '../stores/main-store';
@@ -47,7 +47,7 @@ class CityItem extends Component {
                 <div
                   className={`c-link city-systems-toggle ${this.showAllClass()}`}
                   onClick={this.toggleShow.bind(this)}>
-                    {this.state.showAll ? '-' : '+'}
+                    <span className={`fas ${this.state.showAll ? 'fa-angle-up' : 'fa-angle-down'}`}/>
                 </div> : null
               }
             </div>
@@ -78,10 +78,6 @@ class Cities extends Component {
     this.state = CitiesStore.getState();
   }
 
-  componentWillMount() {
-    CitiesStore.addChangeListener(this.bindedOnChange);
-  }
-
   componentWillUnmount() {
     CitiesStore.removeChangeListener(this.bindedOnChange);
   }
@@ -91,6 +87,8 @@ class Cities extends Component {
   }
 
   componentDidMount() {
+    CitiesStore.addChangeListener(this.bindedOnChange);
+
     CitiesStore.fetchCities();
     CitiesStore.fetchContributors();
     CitiesStore.fetchTopSystems();

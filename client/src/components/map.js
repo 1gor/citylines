@@ -7,10 +7,6 @@ import CutLineControl from './map/cut-line-control';
 import SatelliteControl from './map/satellite-control';
 
 class Map extends Component {
-  constructor(props, context) {
-    super(props, context);
-  }
-
   getChildContext() {
     return {map: this.map};
   }
@@ -124,7 +120,7 @@ class Map extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.center && !this.map) {
       this.setMap(nextProps);
     } else if (nextProps.center && nextProps.center != this.props.center && JSON.stringify(nextProps.center) != JSON.stringify(this.props.center)) {
@@ -157,8 +153,10 @@ Map.childContextTypes = {
 }
 
 class Source extends Component {
-  componentWillMount(){
-    this.map = this.context.map;
+  constructor(props, context) {
+    super(props, context);
+
+    this.map = context.map;
     this.load();
   }
 
@@ -211,7 +209,7 @@ class Layer extends Component {
     this.load();
   }
 
-  componentWillReceiveProps(nextProps, nextContext) {
+  UNSAFE_componentWillReceiveProps(nextProps, nextContext) {
     if (nextProps.filter && nextProps.filter !== this.props.filter) {
       this.map.setFilter(this.props.id, nextProps.filter);
     }
@@ -243,7 +241,7 @@ class Popup extends Component {
     this.load(this.props);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.point != this.props.point) {
       this.load(nextProps);
     }
@@ -374,7 +372,7 @@ class Draw extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.features != this.props.features) {
       this.draw.set(nextProps.features);
     }
